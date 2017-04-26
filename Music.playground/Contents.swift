@@ -26,10 +26,10 @@ func toneAtPosition( i : Int, _ allthetones : [String] ) -> String {
 
 
 func scaleWithIntervals( note: String, _ tones: [ String ], _ intervals: [Step] ) -> [ String ]{
-    var index = tones.indexOf(note)!
+    var index = tones.index(of: note)!
     var scale : [ String ] = []
     for i in 0...6 {
-        let tone = toneAtPosition( index, tones )
+        let tone = toneAtPosition( i:index, tones )
         scale.append( tone )
         index = index + intervals[i].rawValue
     }
@@ -37,17 +37,17 @@ func scaleWithIntervals( note: String, _ tones: [ String ], _ intervals: [Step] 
 }
 
 func majorScale( note: String, _ tones: [ String ] ) -> [ String ] {
-    return scaleWithIntervals(note, tones, [ .WHOLE, .WHOLE, .HALF, .WHOLE, .WHOLE, .WHOLE, .HALF ] )
+    return scaleWithIntervals(note: note, tones, [ .WHOLE, .WHOLE, .HALF, .WHOLE, .WHOLE, .WHOLE, .HALF ] )
 }
 func minorScale( note: String, _ tones: [ String ] ) -> [ String ] {
-    return scaleWithIntervals(note, tones, [ .WHOLE, .HALF, .WHOLE, .WHOLE, .HALF, .WHOLE, .WHOLE ] )
+    return scaleWithIntervals(note: note, tones, [ .WHOLE, .HALF, .WHOLE, .WHOLE, .HALF, .WHOLE, .WHOLE ] )
 }
 
 func chordsInScale( scale: String,_ tones: [String] ) -> [ String ]{
-    let tonesInScale = majorScale( scale, tones )
+    let tonesInScale = majorScale( note: scale, tones )
     let majorminor = [ "dur", "mol", "mol", "dur", "dur", "mol", "dim" ]
     var chords : [ String ] = []
-    for (index, tone) in tonesInScale.enumerate() {
+    for (index, tone) in tonesInScale.enumerated() {
         let chord = tone + "-" + majorminor[index]
         chords.append(chord)
     }
@@ -55,47 +55,45 @@ func chordsInScale( scale: String,_ tones: [String] ) -> [ String ]{
 }
 
 func makeMajorChord( note: String, _ tones: [ String ] ) -> ( String, String, String ) {
-    let scale = majorScale( note, tones )
+    let scale = majorScale( note: note, tones )
     return ( scale[0], scale[2], scale[4] )
 }
 
 func makeminorChord( note: String, _ tones: [ String ] ) -> ( String, String, String ) {
-    let scale = minorScale( note, tones )
+    let scale = minorScale( note: note, tones )
     return ( scale[0], scale[2], scale[4] )
 }
-
-
 // ♭ ♯
 
 var tonovi = [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "H" ]
 
-majorScale("C", tonovi )
-majorScale("D", tonovi )
-majorScale("E", tonovi )
-majorScale("F", tonovi )
-majorScale("G", tonovi )
-majorScale("A", tonovi )
+majorScale(note: "C", tonovi )
+majorScale(note: "D", tonovi )
+majorScale(note: "E", tonovi )
+majorScale(note: "F", tonovi )
+majorScale(note:"G", tonovi )
+majorScale(note:"A", tonovi )
 
-minorScale("A", tonovi )
+minorScale(note:"A", tonovi )
 // dur, mol, mol, dur, dur, mol, dim
 
-chordsInScale( "C", tonovi )
-chordsInScale( "D", tonovi )
-chordsInScale( "E", tonovi )
-chordsInScale( "F", tonovi )
-chordsInScale( "G", tonovi )
-chordsInScale( "A", tonovi )
+chordsInScale( scale: "C", tonovi )
+chordsInScale( scale:"D", tonovi )
+chordsInScale( scale: "E", tonovi )
+chordsInScale( scale:"F", tonovi )
+chordsInScale( scale:"G", tonovi )
+chordsInScale( scale:"A", tonovi )
 
-makeMajorChord( "C", tonovi )
-makeMajorChord( "D", tonovi )
-makeMajorChord( "E", tonovi )
-makeMajorChord( "F", tonovi )
-makeMajorChord( "G", tonovi )
+makeMajorChord( note:"C", tonovi )
+makeMajorChord( note:"D", tonovi )
+makeMajorChord( note:"E", tonovi )
+makeMajorChord( note:"F", tonovi )
+makeMajorChord( note:"G", tonovi )
 
-makeminorChord( "C", tonovi )
-makeminorChord( "D", tonovi )
-makeminorChord( "E", tonovi )
-makeminorChord( "F", tonovi )
-makeminorChord( "G", tonovi )
+makeminorChord( note:"C", tonovi )
+makeminorChord( note:"D", tonovi )
+makeminorChord( note:"E", tonovi )
+makeminorChord( note:"F", tonovi )
+makeminorChord( note:"G", tonovi )
 
 
