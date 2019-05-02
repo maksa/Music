@@ -26,7 +26,7 @@ func toneAtPosition( i : Int, _ allthetones : [String] ) -> String {
 
 
 func scaleWithIntervals( note: String, _ tones: [ String ], _ intervals: [Step] ) -> [ String ]{
-    var index = tones.index(of: note)!
+    var index = tones.firstIndex(of: note)!
     var scale : [ String ] = []
     for i in 0...6 {
         let tone = toneAtPosition( i:index, tones )
